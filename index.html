@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ship's Crane Operating Guide</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 1.5rem 2rem;
+      background: #f5f7fb;
+      color: #1f2a44;
+    }
+
+    header {
+      background: #0d3b66;
+      color: #fff;
+      padding: 1.5rem;
+      margin: 0 -1.5rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      border: none;
+      background: #0d3b66;
+      color: #fff;
+      border-radius: 6px;
+      padding: 0.55rem 0.95rem;
+      cursor: pointer;
+      transition: transform 0.05s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
+    button:active { transform: translateY(1px); }
+
+    .log {
+      font-family: "Fira Code", monospace;
+      background: #0d1b2a;
+      color: #e0e9f5;
+      padding: 0.75rem;
+      border-radius: 8px;
+      min-height: 160px;
+      overflow-y: auto;
+      white-space: pre-line;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      background: #f7b538;
+      color: #1f2a44;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-right: 0.35rem;
+      margin-bottom: 0.25rem;
+    }
+
+    ul { padding-left: 1.25rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ship's Crane Professional Operating Guide</h1>
+    <p>Reference outline for hoisting, luffing, slewing, and hydraulic care with a built-in checklist simulator.</p>
+  </header>
+
+  <section class="grid">
+    <article class="card">
+      <h2>Pre-Operation Checklist</h2>
+      <ul id="precheck"></ul>
+      <div class="controls">
+        <button id="run-checklist">Run checklist</button>
+        <button id="reset-checklist" style="background:#7d8597">Reset</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>Core Movements</h2>
+      <p><span class="badge">Hoist</span> raise/lower the load with smooth, metered speed.</p>
+      <p><span class="badge">Luff</span> boom in/out; never over-ride limits or sudden changes.</p>
+      <p><span class="badge">Slew</span> rotate the crane, prioritize wind, deck traffic, and blind spots.</p>
+      <div class="controls">
+        <button data-action="hoist">Hoist Up</button>
+        <button data-action="lower">Lower</button>
+        <button data-action="luff-in">Luff In</button>
+        <button data-action="luff-out">Luff Out</button>
+        <button data-action="slew-port">Slew Port</button>
+        <button data-action="slew-starboard">Slew Starboard</button>
+        <button id="emergency-stop" style="background:#c1121f">Emergency Stop</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>Hydraulic & Power Discipline</h2>
+      <ul>
+        <li>Warm up oil to operating temperature before full-load lifts; monitor pressure gauges and tank levels.</li>
+        <li>Keep hydraulic filters and strainers within service intervals; record delta-P across filters.</li>
+        <li>Inspect hoses for abrasion, leaks, and coupling integrity every watch; tag out any defect immediately.</li>
+        <li>Bleed air after maintenance, verify relief valve settings, and confirm accumulator pre-charge.</li>
+        <li>For electric cranes, check bus voltage, protection relays, insulation resistance, and brake settings.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Safe Work Practices</h2>
+      <ul>
+        <li>Only operate within the certified load chart; apply vessel heel/trim and wind corrections.</li>
+        <li>Maintain clear communications with a designated signaller on UHF/VHF or hand signals.</li>
+        <li>Never ride the hook; use certified lifting gear with valid color-coding and SWL markings.</li>
+        <li>Pause operations during heavy weather, poor visibility, or unsecure deck traffic.</li>
+        <li>Test brakes, limit switches, and overload protection each shift.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Shutdown & Post-Use</h2>
+      <ul>
+        <li>Lower hook to a safe rest, boom to stow position, slew to the cradle, and engage slew lock.</li>
+        <li>Neutralize controls, de-energize power pack, close isolation valves, and apply lockout/tagout.</li>
+        <li>Log pressures, temperatures, alarms, and any anomalies for maintenance follow-up.</li>
+        <li>Grease slew ring, sheaves, and wire ropes per OEM intervals; wipe down for corrosion control.</li>
+      </ul>
+    </article>
+
+    <article class="card" style="grid-column: 1 / -1">
+      <h2>Operation Log & Simulator</h2>
+      <p>The simulator enforces safe load limits, smooth transitions, and emergency stops to mimic professional practice.</p>
+      <div class="controls">
+        <button id="simulate-hoist" style="background:#007f5f">Simulate Hoist Cycle</button>
+        <button id="simulate-transfer" style="background:#2b9348">Simulate Full Transfer</button>
+      </div>
+      <div class="log" id="log"></div>
+    </article>
+  </section>
+
+  <script src="main.js"></script>
+</body>
+</html>
